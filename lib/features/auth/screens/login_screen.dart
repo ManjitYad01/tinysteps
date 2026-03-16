@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 borderRadius: BorderRadius.circular(AppRadius.lg + 8),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.textDark.withOpacity(0.05),
+                    color: AppColors.textDark.withValues(alpha: 0.05),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
                   ),
@@ -122,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       hintText: 'parent@tinysteps.com',
                       hintStyle: AppTextStyles.bodyMuted,
                       filled: true,
-                      fillColor: AppColors.bgLight.withOpacity(0.5),
+                      fillColor: AppColors.bgLight.withValues(alpha: 0.5),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(AppRadius.md),
@@ -156,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       hintText: '••••••••',
                       hintStyle: AppTextStyles.bodyMuted,
                       filled: true,
-                      fillColor: AppColors.bgLight.withOpacity(0.5),
+                      fillColor: AppColors.bgLight.withValues(alpha: 0.5),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -243,12 +243,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           const TextSpan(text: 'By logging in, you agree to our '),
                           TextSpan(
                             text: 'Terms of Service',
-                            style: TextStyle(color: AppColors.textDark.withOpacity(0.7), fontWeight: FontWeight.bold),
+                            style: TextStyle(color: AppColors.textDark.withValues(alpha: 0.7), fontWeight: FontWeight.bold),
                           ),
                           const TextSpan(text: ' and '),
                           TextSpan(
                             text: 'Privacy Policy',
-                            style: TextStyle(color: AppColors.textDark.withOpacity(0.7), fontWeight: FontWeight.bold),
+                            style: TextStyle(color: AppColors.textDark.withValues(alpha: 0.7), fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),

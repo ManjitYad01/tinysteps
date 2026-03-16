@@ -90,7 +90,7 @@ class _ChildAvatar extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: color.withOpacity(0.2),
+          backgroundColor: color.withValues(alpha: 0.2),
           child: Text(name[0], style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 24)),
         ),
         const SizedBox(height: 8),

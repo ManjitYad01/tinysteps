@@ -235,7 +235,7 @@ class AppShadows {
 
   static List<BoxShadow> get soft => [
     BoxShadow(
-      color: AppColors.primary.withOpacity(0.10),
+      color: AppColors.primary.withValues(alpha: 0.10),
       blurRadius: 12,
       offset: const Offset(0, 4),
     ),
@@ -243,13 +243,13 @@ class AppShadows {
 
   static List<BoxShadow> get card => [
     BoxShadow(
-      color: const Color(0xFFFF6B6B).withOpacity(0.08),
+      color: const Color(0xFFFF6B6B).withValues(alpha: 0.08),
       blurRadius: 16,
       offset: const Offset(0, 4),
       spreadRadius: 0,
     ),
     BoxShadow(
-      color: Colors.black.withOpacity(0.04),
+      color: Colors.black.withValues(alpha: 0.04),
       blurRadius: 4,
       offset: const Offset(0, 2),
     ),
@@ -257,7 +257,7 @@ class AppShadows {
 
   static List<BoxShadow> get button => [
     BoxShadow(
-      color: AppColors.primary.withOpacity(0.35),
+      color: AppColors.primary.withValues(alpha: 0.35),
       blurRadius: 12,
       offset: const Offset(0, 4),
     ),
@@ -265,7 +265,7 @@ class AppShadows {
 
   static List<BoxShadow> get floating => [
     BoxShadow(
-      color: Colors.black.withOpacity(0.12),
+      color: Colors.black.withValues(alpha: 0.12),
       blurRadius: 24,
       offset: const Offset(0, 8),
     ),

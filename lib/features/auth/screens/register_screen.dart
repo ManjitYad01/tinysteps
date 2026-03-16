@@ -83,7 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 borderRadius: BorderRadius.circular(AppRadius.lg + 8),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.textDark.withOpacity(0.05),
+                    color: AppColors.textDark.withValues(alpha: 0.05),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
                   ),
@@ -133,7 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintText: 'Jane Smith',
                       prefixIcon: const Icon(Icons.person_outline, size: 20),
                       filled: true,
-                      fillColor: AppColors.bgLight.withOpacity(0.5),
+                      fillColor: AppColors.bgLight.withValues(alpha: 0.5),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(AppRadius.md),
                         borderSide: BorderSide.none,
@@ -152,7 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintText: 'jane.smith@example.com',
                       prefixIcon: const Icon(Icons.email_outlined, size: 20),
                       filled: true,
-                      fillColor: AppColors.bgLight.withOpacity(0.5),
+                      fillColor: AppColors.bgLight.withValues(alpha: 0.5),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(AppRadius.md),
                         borderSide: BorderSide.none,
@@ -178,7 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
                       ),
                       filled: true,
-                      fillColor: AppColors.bgLight.withOpacity(0.5),
+                      fillColor: AppColors.bgLight.withValues(alpha: 0.5),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(AppRadius.md),
                         borderSide: BorderSide.none,
@@ -201,7 +201,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               decoration: BoxDecoration(
-                                color: selected ? AppColors.primary : AppColors.bgLight.withOpacity(0.5),
+                                color: selected ? AppColors.primary : AppColors.bgLight.withValues(alpha: 0.5),
                                 borderRadius: BorderRadius.circular(AppRadius.md),
                                 border: Border.all(
                                   color: selected ? AppColors.primary : Colors.transparent,
