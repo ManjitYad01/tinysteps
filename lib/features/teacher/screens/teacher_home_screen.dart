@@ -234,7 +234,7 @@ class _TeacherDashboardTab extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: FilledButton.icon(
-                onPressed: () => context.go('/teacher/attendance'),
+                onPressed: () => context.push('/teacher/attendance'),
                 icon: const Icon(Icons.qr_code_scanner, color: AppColors.white),
                 label: Text(
                   'Scan QR Code',
@@ -421,7 +421,7 @@ class _TeacherAttendanceTab extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: FilledButton.icon(
-                onPressed: () => context.go('/teacher/attendance'),
+                onPressed: () => context.push('/teacher/attendance'),
                 icon: const Icon(Icons.camera_alt_rounded),
                 label: Text('Open Scanner', style: AppTextStyles.buttonLabel),
                 style: FilledButton.styleFrom(

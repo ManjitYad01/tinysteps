@@ -247,7 +247,13 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/teacher'),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/teacher');
+            }
+          },
         ),
       ),
       body: _state == _ScanState.scanning
