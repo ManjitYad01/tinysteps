@@ -22,6 +22,8 @@ import 'package:tinysteps/features/teacher/screens/child_detail_screen.dart';
 import 'package:tinysteps/features/teacher/screens/my_classroom_screen.dart';
 import 'package:tinysteps/features/admin/screens/admin_home_screen.dart';
 
+import '../../features/teacher/screens/teacher_faq_screen.dart';
+
 // ── Listens to Supabase auth state and notifies GoRouter to re-evaluate ──────
 class _SupabaseAuthNotifier extends ChangeNotifier {
   _SupabaseAuthNotifier() {
@@ -100,7 +102,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           childName: s.uri.queryParameters['name'] ?? 'Child',
         ),
       ),
-
+      GoRoute(
+        path: '/faq',
+        builder: (context, state) => const TeacherFAQScreen(),
+      ),
       // ── Admin ────────────────────────────────────────────────────────────────
       GoRoute(path: '/admin', builder: (c, s) => const AdminHomeScreen()),
     ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tinysteps/core/constants/app_theme.dart';
-
+import 'package:go_router/go_router.dart';
 /// Shared across all roles — Help Center, call daycare, email, FAQ.
 /// Navigate here via context.push('/support') from any settings screen.
 class SupportScreen extends StatelessWidget {
@@ -68,7 +68,7 @@ class SupportScreen extends StatelessWidget {
               subtitle: 'Answers to common questions',
               color: AppColors.secondary,
               onTap: () {
-                // TODO: open FAQ page or accordion here
+                context.push('/faq');
               },
             ),
 
