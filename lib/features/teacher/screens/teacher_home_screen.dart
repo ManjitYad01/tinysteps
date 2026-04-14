@@ -251,6 +251,9 @@ class _TeacherDashboardTab extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.lg),
 
+            _TodaysSummaryCard(),
+            const SizedBox(height: AppSpacing.lg),
+
             Text('Today\'s Attendance', style: AppTextStyles.heading2),
             const SizedBox(height: AppSpacing.md),
 
@@ -372,6 +375,150 @@ class _TodayAttendanceSummaryState extends State<_TodayAttendanceSummary> {
     } catch (_) {
       return '—';
     }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Today's Summary Card — shows expected, checked in, checked out counts (realtime)
+// ─────────────────────────────────────────────────────────────────────────────
+class _TodaysSummaryCard extends StatefulWidget {
+  const _TodaysSummaryCard();
+
+  @override
+  State<_TodaysSummaryCard> createState() => _TodaysSummaryCardState();
+}
+
+class _TodaysSummaryCardState extends State<_TodaysSummaryCard> {
+  final _supabase = Supabase.instance.client;
+  late Future<int> _expectedCountFuture;
+  late Stream<List<dynamic>> _attendanceStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _setupData();
+  }
+
+  void _setupData() {
+    final uid = _supabase.auth.currentUser?.id;
+    final today = DateTime.now().toIso8601String().substring(0, 10);
+
+    // Fetch count of children assigned to this teacher
+    _expectedCountFuture = _supabase
+        .from('children')
+        .select('id')
+        .eq('teacher_id', uid ?? '')
+        .then((list) => list.length);
+
+    // Setup realtime stream for today's attendance
+    _attendanceStream = _supabase
+        .from('attendance')
+        .stream(primaryKey: ['id'])
+        .eq('date', today)
+        .asyncMap((records) async {
+          // Fetch teacher's children to filter attendance records
+          final childrenList = await _supabase
+              .from('children')
+              .select('id')
+              .eq('teacher_id', uid ?? '');
+          final childIds = (childrenList as List).map((c) => c['id']).toSet();
+
+          // Filter attendance to only this teacher's children
+          return records
+              .where((r) => childIds.contains(r['child_id']))
+              .toList();
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<int>(
+      future: _expectedCountFuture,
+      builder: (context, expectedSnapshot) {
+        if (expectedSnapshot.connectionState == ConnectionState.waiting) {
+          return const SizedBox(
+            height: 100,
+            child: Center(
+              child: CircularProgressIndicator(color: AppColors.primary),
+            ),
+          );
+        }
+
+        final expected = expectedSnapshot.data ?? 0;
+
+        return StreamBuilder<List<dynamic>>(
+          stream: _attendanceStream,
+          builder: (context, attendanceSnapshot) {
+            int checkedIn = 0;
+            int checkedOut = 0;
+
+            if (attendanceSnapshot.hasData) {
+              final records = attendanceSnapshot.data ?? [];
+              for (final record in records) {
+                final row = record as Map<String, dynamic>;
+                if (row['checked_in_at'] != null) checkedIn++;
+                if (row['checked_out_at'] != null) checkedOut++;
+              }
+            }
+
+            return Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(AppRadius.md),
+                border: Border.all(color: AppColors.border),
+                boxShadow: AppShadows.card,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Today\'s Summary', style: AppTextStyles.labelBold),
+                  const SizedBox(height: AppSpacing.md),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _SummaryStatColumn(count: expected, label: 'Expected'),
+                      _SummaryStatColumn(count: checkedIn, label: 'Checked In'),
+                      _SummaryStatColumn(count: checkedOut, label: 'Checked Out'),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+class _SummaryStatColumn extends StatelessWidget {
+  final int count;
+  final String label;
+
+  const _SummaryStatColumn({
+    required this.count,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          count.toString(),
+          style: AppTextStyles.heading2.copyWith(
+            color: AppColors.primary,
+          ),
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          label,
+          style: AppTextStyles.caption,
+        ),
+      ],
+    );
   }
 }
 
